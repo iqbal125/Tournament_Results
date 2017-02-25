@@ -34,11 +34,13 @@ def countPlayers():
     conn = connect()
     cur = conn.cursor()
     query = "SELECT count(*) FROM players;"
-    cur.execute(query)
     count = int(cur.fetchone()[0])
     return count
+    cur.execute(query)
     conn.commit()
     conn.close()
+
+
 
 
 def registerPlayer(name):
@@ -52,8 +54,8 @@ def registerPlayer(name):
     """
     conn = connect()
     cur = conn.cursor()
-    query = "INSERT INTO players(player_name) VALUES ('%s');" % name
-    cur.execute(query);
+    query = "INSERT INTO players(player_name) VALUES (%s);"
+    cur.execute(query, (name,));
     conn.commit()
     conn.close()
 
@@ -71,7 +73,7 @@ def playerStandings():
     """
     conn = connect()
     cur = conn.cursor()
-    query = "SELECT * FROM player_standings;"
+    query = "SELECT * FROM matches;"
     cur.execute(query)
     results = cur.fetchall()
     return results
@@ -89,8 +91,8 @@ def reportMatch(winner, loser):
     """
     conn = connect()
     cur = conn.cursor()
-    query = "INSERT INTO matches(winner, loser) VALUES ('%s', '%s');" % (winner, loser)
-    cur.execute(query)
+    query = "INSERT INTO matches(winner, loser) VALUES (%s, %s);"
+    cur.execute(query, (winner, loser))
     conn.commit()
     conn.close()
 
@@ -109,20 +111,13 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-    conn = connect()
-    cur = conn.cursor()
-    query = "SELECT * FROM player_standings;"
-    cur.execute(query)
 
-    results = query.fetchall()
-    return results
+    standings = playerStandings()
 
     pairings = []
-
-    for i in len(results):
-        standing1 = results[i]
-        standing2 = results[i + 1]
+    for i in range(0, len(standings), 2):
+        standing1 = standings[i]
+        standing2 = standings[i+1]
         pairings.append([standing1[0], standing1[1], standing2[0], standing2[1]])
 
-    conn.commit()
-    conn.close()
+    return pairings

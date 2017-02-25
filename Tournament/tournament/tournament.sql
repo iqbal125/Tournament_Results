@@ -11,17 +11,31 @@
 -- DROP TABLE if EXISTS players, matches;
 
 CREATE TABLE players (
-   id SERIAL PRIMARY KEY,
+   player_id SERIAL PRIMARY KEY,
    player_name TEXT
 );
 
 CREATE TABLE matches (
-    id SERIAL PRIMARY KEY,
-    winner INTEGER REFERENCES  players(id),
-    loser INTEGER REFERENCES  players(id)
+    match_id SERIAL PRIMARY KEY,
+    winner INTEGER REFERENCES  players(player_id),
+    loser INTEGER REFERENCES  players(player_id)
 );
 
-CREATE VIEW player_standings AS
-SELECT players.player_name, count(players.player_name) AS win_total
-FROM players, matches
-WHERE players.id=matches.winner GROUP BY players.name ORDER BY win_total DESC;
+CREATE VIEW wins_view AS
+SELECT  players.player_id,
+        players.player_name,
+        count(matches.winner) AS wins
+FROM players LEFT JOIN matches
+ON players.player_id = matches.winner
+GROUP BY players.player_id
+ORDER BY wins DESC;
+
+
+CREATE VIEW matches_view AS
+SELECT  players.player_id,
+        players.player_name,
+        (count(matches.winner)) + (count(matches.loser)) AS matches
+FROM players LEFT JOIN matches
+ON players.player_id = matches.winner or players.player_id = matches.loser
+GROUP BY players.player_id
+ORDER BY matches DESC;

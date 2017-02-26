@@ -34,13 +34,11 @@ def countPlayers():
     conn = connect()
     cur = conn.cursor()
     query = "SELECT count(*) FROM players;"
+    cur.execute(query)
     count = int(cur.fetchone()[0])
     return count
-    cur.execute(query)
     conn.commit()
     conn.close()
-
-
 
 
 def registerPlayer(name):
@@ -73,7 +71,7 @@ def playerStandings():
     """
     conn = connect()
     cur = conn.cursor()
-    query = "SELECT * FROM matches;"
+    query = "SELECT * FROM matches_view;"
     cur.execute(query)
     results = cur.fetchall()
     return results

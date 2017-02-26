@@ -4,11 +4,11 @@
 -- statements if you choose to use it.
 
 
--- CREATE DATABASE tournament
---
--- \c tournament
---
--- DROP TABLE if EXISTS players, matches;
+CREATE DATABASE tournament
+
+\c tournament
+
+DROP TABLE if EXISTS players, matches;
 
 CREATE TABLE players (
    player_id SERIAL PRIMARY KEY,
@@ -34,6 +34,7 @@ ORDER BY wins DESC;
 CREATE VIEW matches_view AS
 SELECT  players.player_id,
         players.player_name,
+        count(matches.winner) AS wins,
         (count(matches.winner)) + (count(matches.loser)) AS matches
 FROM players LEFT JOIN matches
 ON players.player_id = matches.winner or players.player_id = matches.loser

@@ -36,9 +36,9 @@ def countPlayers():
     query = "SELECT count(*) FROM players;"
     cur.execute(query)
     count = int(cur.fetchone()[0])
-    return count
     conn.commit()
     conn.close()
+    return count
 
 
 def registerPlayer(name):
@@ -71,12 +71,12 @@ def playerStandings():
     """
     conn = connect()
     cur = conn.cursor()
-    query = "SELECT * FROM matches_view;"
+    query = "SELECT * FROM standings"
     cur.execute(query)
     results = cur.fetchall()
-    return results
     conn.commit()
     conn.close()
+    return results
 
 
 def reportMatch(winner, loser):
@@ -111,8 +111,8 @@ def swissPairings():
     """
 
     standings = playerStandings()
-
     pairings = []
+    
     for i in range(0, len(standings), 2):
         standing1 = standings[i]
         standing2 = standings[i+1]

@@ -9,7 +9,7 @@ You must have Python and PSQL installed<br>
 You must also have Vagrant installed and ready for use with VM box<br>
 If you are not fimiliar with Vagrant visit https://www.vagrantup.com/docs/getting-started/ for more details<br>
 For more details on VM box visit https://www.virtualbox.org/<br>
-Python and PSQL can be found at https://www.python.org/ and https://www.postgresql.org/
+Python and PSQL can be found at https://www.python.org/ and https://www.postgresql.org/<br>
 <br>
 Running the App:
 1. Open up your terminal

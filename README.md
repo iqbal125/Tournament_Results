@@ -3,12 +3,12 @@
 This project uses Python and PSQL to simulate a sports ranking system.<br>
 Wins and Loses are recorded and players with similar number of wins are matched together.<br>
 
-Prerequisites:
+Prerequisites:<br>
 Running this project requires basic knowledge of Vagrant, Python and PSQL<br>
-You must have Python and PSQL installed
+You must have Python and PSQL installed<br>
 You must also have Vagrant installed and ready for use with VM box<br>
 If you are not fimiliar with Vagrant visit https://www.vagrantup.com/docs/getting-started/ for more details<br>
-For more details on VM box visit https://www.virtualbox.org/
+For more details on VM box visit https://www.virtualbox.org/<br>
 
 Running the App:
 1. Open up your terminal
